@@ -1,16 +1,19 @@
 const jwt = require("jsonwebtoken");
 
 module.exports = {
-  generateToken(user) {
-    // Replace 'your-secret-key' with your actual secret key
+  generateToken(user, app) {
+    const secret = app.config.jwt.secret; // Get secret from config
+    const expireIn = app.config.jwt.expireIn;
     const payload = {
       id: user.id,
       email: user.email,
       name: user.name,
     };
 
-    // Here we use a JWT secret key (make sure it's stored securely in env vars or config)
-    const token = jwt.sign(payload, "your-secret-key", { expiresIn: "1h" });
+    const token = jwt.sign(payload, secret, {
+      expiresIn: expireIn,
+      algorithm: "HS256",
+    });
 
     return token;
   },

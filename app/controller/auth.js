@@ -31,11 +31,9 @@ class AuthController extends Controller {
           email: user.email,
           name: user.name,
         },
-        token: ctx.helper.generateToken(user),
+        token: ctx.helper.generateToken(user, ctx.app),
       };
     } catch (error) {
-      console.log(error);
-
       if (error instanceof CustomError) {
         ctx.status = error.statusCode;
         ctx.body = { message: error.message };

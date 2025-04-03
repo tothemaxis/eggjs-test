@@ -6,8 +6,9 @@ const { Controller } = require("egg");
 class UserController extends Controller {
   /**
    * @summary get list of all users
-   * @router GET /users
+   * @router GET /api/v1/users
    * @response 200
+   * @security BearerAuth
    */
   async index() {
     const { ctx } = this;

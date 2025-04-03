@@ -12,7 +12,7 @@ module.exports = (appInfo) => {
   const config = (exports = {});
 
   // use for cookie sign key, should change to your own and keep security
-  config.keys = appInfo.name + "_1743488871127_2432";
+  config.keys = appInfo.name + "_Ewup8JAF015RRgfrhTjf";
 
   // add your middleware config here
   config.middleware = [];
@@ -64,8 +64,17 @@ module.exports = (appInfo) => {
     schemes: ["http", "https"],
     consumes: ["application/json"],
     produces: ["application/json"],
-    enableSecurity: false,
+    securityDefinitions: {
+      Bearer: {
+        type: "apiKey",
+        name: "Authorization",
+        in: "header",
+        description: "Enter token in the format: Bearer {token}",
+      },
+    },
+    enableSecurity: true,
     routerMap: true,
+    // security: [{ BearerAuth: [] }],
   };
 
   // https://github.com/jaredhanson/passport-local
@@ -82,7 +91,14 @@ module.exports = (appInfo) => {
   };
 
   config.jwt = {
-    secret: "tqw)N)RQ~5idWIIsay}X9XQUKGb&v1",
+    secret: "f833Kio7jahusGijURODBYcfuyZ4Ioa6bPC9wCJQtEVjEwup8JAF015RRgfrhTjf",
+    expireIn: "4h",
+  };
+
+  config.cors = {
+    origin: "*",
+    allowMethods: "GET,HEAD,PUT,POST,DELETE,PATCH",
+    allowHeaders: ["Authorization", "Content-Type"], // ✅ Allow Authorization header
   };
 
   return {
